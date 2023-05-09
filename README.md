@@ -10,4 +10,4 @@ As the player fills in more and more cells correctly, more rows become easier to
 
 Solution grids are generated randomly, and users are able to choose the number of rows and columns on the game board to increase or decrease the challenge level. Users single click to color in a cell and double click to block off a cell. A single click on a filled cell will clear the cell.
 
-Picross is my favorite puzzle game, and I am proud that this app runs from one app.R file with less than 250 lines of code. I have also hosted a demo on [shinyapps.io](https://hbwaddel.shinyapps.io/Picross/)
+Picross is my favorite puzzle game, and I am proud that this app runs from one app.R file with less than 250 lines of code. I have also hosted a demo on [shinyapps.io](https://hannahwaddel.shinyapps.io/rshiny-picross/)
