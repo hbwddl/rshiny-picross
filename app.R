@@ -38,7 +38,6 @@ ui <- fluidPage(
                          choices=list("Yes" = 1,"No"=0),
                          selected=0)
         ), 
-
         # Show the puzzle grid
         mainPanel(
            plotOutput("picross",click = "plot.click",dblclick = "plot.dblclick")
@@ -66,13 +65,12 @@ server <- function(input, output) {
     
     r_show_answer <- reactive(input$show_answer)
     
-    # Store whether or not the board has been clicked on, in order to clear it with a single click
+    # Store whether or not the board has been clicked on, in order to clear tile with a single click
     v <- reactiveValues(
-        click1 = NULL,  # Represents the first mouse click, if any
-        click2 = NULL
+        click1 = NULL  # Represents first mouse click, if any
     )
     
-    # Update the board if button is pressed
+    # Update the board if update button is pressed
     observeEvent(input$update, {
         board_nrow(input$n_row)
         board_ncol(input$n_col)
@@ -85,7 +83,7 @@ server <- function(input, output) {
         play_plot_board2 <- reactive(cbind(play_plot_board(),click_data()))
     })
     
-    # Fill in with a blue tile if the grid is clicked once
+    # Fill in with a blue tile if the grid is clicked once, or white tile if grid has already been clicked
     observeEvent(input$plot.click,{
         if(is.null(v$click1)){
             v$click1 <- input$plot.click
@@ -105,7 +103,6 @@ server <- function(input, output) {
         else{
             newClick[((click.col()-1)*board_nrow()) + click.row()] <- 1
         }
-        
         click_data(newClick)
     })
     
@@ -157,11 +154,8 @@ server <- function(input, output) {
 #Picross Functions
 #Construct a Picross board. A higher value of prob_filled will result in a more densely-colored playing grid
 makePicross <- function(row_n=10,col_n=10,prob_filled = 0.6){
-    if((row_n > 20) | (col_n > 20)){
+    if(((row_n > 20) | (col_n > 20)) || ((row_n < 5) | (col_n < 5))){
         break
-    }
-    if((row_n < 5) | (col_n < 5)){
-      break
     }
   
     board <- matrix(data=NA,nrow=row_n,ncol=col_n)
